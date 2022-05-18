@@ -21,7 +21,7 @@ services:
       - .:/usr/src
       - /usr/src/node_modules
     entrypoint: dockerize -wait tcp://banco:5432 -timeout 20s docker-entrypoint.sh
-    command: "npm run build && npm run start"
+    command: "npm run start"
     depends_on:
       - banco
 
