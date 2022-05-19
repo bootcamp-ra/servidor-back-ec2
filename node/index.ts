@@ -1,12 +1,14 @@
 import pkg from "@prisma/client";
+import cors from "cors";
 import express, { Request, Response } from "express";
+const { PrismaClient } = pkg;
+const prisma = new PrismaClient();
 
 const app = express();
+app.use(cors());
 
 app.get("/hello", async (req: Request, res: Response) => {
   try {
-    const { PrismaClient } = pkg;
-    const prisma = new PrismaClient();
     const users = await prisma.user.findMany();
     await prisma.user.create({
       data: { name: `Usuario ${Date.now()}` },
