@@ -2,7 +2,7 @@ FROM node:15
 
 WORKDIR /var/www/html
 
-COPY . .
-
+COPY package.json .
 RUN npm i
+COPY . .
 RUN npm run build
