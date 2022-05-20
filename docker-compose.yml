@@ -6,24 +6,35 @@ services:
     ports:
       - 2345:5432
     env_file:
-      - .env
+      - ./node/.env
     volumes:
       - volume_banco:/var/lib/postgresql/data
 
   app_node:
-    build: .
+    build: ./node
     container_name: app_node
     ports:
       - 5000:5000
     env_file:
-      - .env
+      - ./node/.env
     volumes:
-      - .:/usr/src
-      - /usr/src/node_modules
+      - ./node:/usr/src
+      - /node/usr/src/node_modules
     entrypoint: dockerize -wait tcp://banco:5432 -timeout 20s docker-entrypoint.sh
     command: "npm run dev:migrate"
     depends_on:
       - banco
+
+  app_react:
+    build: ./react-app
+    container_name: app_react
+    volumes:
+      - ./react-app:/var/www/
+      - /react-app/var/www/node_modules
+      - /react-app/var/www/build
+    entrypoint: dockerize -wait tcp://app_node:5000 -timeout 20s docker-entrypoint.sh
+    depends_on:
+      - app_node
 
 volumes:
   volume_banco:
