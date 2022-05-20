@@ -25,25 +25,5 @@ services:
     depends_on:
       - banco
 
-  app_react:
-    build: ./react-app
-    container_name: app_react
-    volumes:
-      - build_react:/var/www/html
-    depends_on:
-      - app_node
-
-  nginx:
-    build: ./nginx
-    container_name: nginx
-    ports:
-      - 8080:80
-    volumes:
-      - build_react:/var/www/html
-    depends_on:
-      - app_node
-      - app_react
-
 volumes:
   volume_banco:
-  build_react:
