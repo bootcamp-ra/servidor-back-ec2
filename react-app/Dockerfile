@@ -1,8 +1,15 @@
-FROM node:15
+FROM node:16
 
-WORKDIR /var/www/html
+# pasta para aonde vai o build
+WORKDIR /app
 
-COPY package.json .
-RUN npm i
 COPY . .
+RUN npm i
 RUN npm run build
+
+RUN mkdir -p /var/www/html
+RUN mv build/* /var/www/html
+
+WORKDIR /
+
+RUN rm -rf /app

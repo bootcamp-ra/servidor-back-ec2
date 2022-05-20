@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 
 function App() {
@@ -18,11 +19,21 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
-      {items.map((item) => (
-        <div>{JSON.stringify(item)}</div>
-      ))}
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<h1>Hello world</h1>} />
+        <Route
+          path="/items"
+          element={
+            <div className="App">
+              {items.map((item) => (
+                <div>{JSON.stringify(item)}</div>
+              ))}
+            </div>
+          }
+        />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
