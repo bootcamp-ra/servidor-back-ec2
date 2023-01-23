@@ -6,7 +6,7 @@ services:
     ports:
       - 2345:5432
     env_file:
-      - .env
+      - .env.example
     volumes:
       - volume_banco:/var/lib/postgresql/data
 
@@ -16,7 +16,7 @@ services:
     ports:
       - 5000:5000
     env_file:
-      - .env
+      - .env.example
     volumes:
       - .:/usr/src
       - /usr/src/node_modules
